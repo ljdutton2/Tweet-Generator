@@ -2,6 +2,7 @@ text = "Step 1: Gather the ingredients and preheat the oven It is essential to u
 text = text.split()
 
 histogram = {}
+unique_words = []
 
 for word in text:
     word = word.rstrip()
@@ -10,4 +11,10 @@ for word in text:
     else:
         histogram[word] = 1
 
-print(histogram)
+
+for word in histogram:
+    if histogram[word] == 1:
+        unique_words.append(word)
+
+
+print(unique_words)
