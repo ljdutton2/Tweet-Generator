@@ -1,7 +1,6 @@
 from histogram import generate_histogram
 from random import *
 import sys
-text = ''
 histogram = {'one': 1, 'fish': 4, 'two': 1, 'red':1, 'blue': 1}
 
 def weight_sum(histogram):
