@@ -1,14 +1,23 @@
-from flask import Flask
+from flask import Flask, request
 from histogram import generate_histogram
 from histogram import get_unique_words
+from sample_freqs import weight_sum
+from random import randint
 app = Flask(__name__)
 
 @app.route('/')
 def generate_words():
-    lines = get_lines("./words.txt")
-    my_histogram = histogram
-    sentance = ""
+    histogram = generate_histogram("one fish two fish red fish blue fish")
+    print(histogram)
+    #num = request.args.get(str("number"))
 
-    num_words = 10
-    for i in range(num_words):
-      word = weighted_sample(my_histogram)
+    sentence = ""
+    for i in range(0,10):
+      word = weight_sum(histogram)
+      sentence += " " + word
+    return sentence
+
+if __name__ == "__main__":
+  app.run()
+  
+          
