@@ -1,5 +1,6 @@
 from dictogram import Dictogram
 from sample_freqs import weight_sum
+import random
 
 class MarkovChain:
 
@@ -8,7 +9,12 @@ class MarkovChain:
 
         #The Markov chain will be a dictionary of dictionaries
         #Example: for "one fish two fish red fish blue fish"
-        #{"one": {fish:1}, "fish": {"two":1, "red":1, "blue":1}, "two": {"fish":1}, "red": {"fish":1}, "blue": {"fish:1"}}
+        #{"one": {fish:1}, 
+        # "fish": {"two":1, "red":1, "blue":1}, 
+        # "two": {"fish":1}, 
+        # "red": {"fish":1}, 
+        # "blue": {"fish:1"}
+        # }
          self.markov_chain = self.build_markov(word_list)
          self.first_word = list(self.markov_chain.keys())[0]
 
@@ -33,15 +39,14 @@ class MarkovChain:
 
     def walk(self, num_words):
         # generate a sentence num_words long using the markov chain
-        sentance = {}
-        for word in word_list:
-            print (word.weight_sum())
-                
-
+     sentence = []
+     next_word = self.first_word
+     while len(sentence) > num_words:   
+            dictogram = self.markov_chain[next_word]
+            next_word = dictogram.sample()
+            sentence.append(next_word)
+     
             
-                
-
-        
 
     def print_chain(self):
         for word, histogram in self.markov_chain.items():

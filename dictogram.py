@@ -8,24 +8,20 @@ class Dictogram:
         '''Initializes the dictogram properties'''
 
         self.word_list = word_list
-       
-        self.dictionary_histogram = self.build_dictogram()
+        self.tokens = 0
+        self.types = 0
+        self.dictionary_histogram = dict()
+        self.build_dictogram()
 
-        self.tokens = sum(self.dictionary_histogram.values())
-        self.types = self.unique_words()
+
 
     def build_dictogram(self): 
         '''Creates a histogram dictionary using the word_list property and returns it'''
         # use your histogram function as a starting point to complete this method
         
-        histogram = {}
         for word in self.word_list:
             word = word.rstrip()
-            if word in histogram.keys():
-                histogram[word] += 1
-            else:
-                histogram[word] = 1
-        return histogram
+            self.add_count(word)
 
 
     def frequency(self, word):
@@ -38,19 +34,25 @@ class Dictogram:
     def unique_words(self):
         '''returns the number of unique words in the dictionary histogram'''
         # use your unique words function as a starting point to complete this method
-        unique_words = []
-        for word in self.dictionary_histogram:
-            if self.dictionary_histogram[word] == 1:
-                unique_words.append(word)
-        return len(unique_words)
+        return len(self.dictionary_histogram.keys())
 
         
+    def add_count(self, word, num=1):
+        """ increase the frequency of a word by num"""
+        if word in self.dictionary_histogram:
+            self.dictionary_histogram[word] += num
+        else:
+            self.dictionary_histogram[word] = num
+            self.types += 1
+
+        self.tokens += num
+       
 
     def sample(self):
         '''Randomly samples from the dictionary histogram based on the frequency, returns a word'''
 
         # use your sample function as a starting point to complete this method 
-        tokens = sum([count for word,count in self.dictionary_histogram.items()])
+        tokens = sum(count for word,count in self.dictionary_histogram.items())
         dart = random.randint(1,tokens)
         fence = 0
         for word, count in self.dictionary_histogram.items():
@@ -114,4 +116,9 @@ def print_dictogram_samples(dictogram):
 print_dictogram(['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])
 dictogram = Dictogram(['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])
 word = "fish"
+
+
+
+
+
 #print(dictogram.sample())
