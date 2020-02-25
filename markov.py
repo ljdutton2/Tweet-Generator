@@ -41,12 +41,14 @@ class MarkovChain:
         # generate a sentence num_words long using the markov chain
      sentence = []
      next_word = self.first_word
-     while len(sentence) > num_words:   
+     for i in range(num_words):   
             dictogram = self.markov_chain[next_word]
             next_word = dictogram.sample()
+            print(next_word)
             sentence.append(next_word)
      
             
+
 
     def print_chain(self):
         for word, histogram in self.markov_chain.items():
