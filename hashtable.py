@@ -37,8 +37,15 @@ class HashTable(object):
     def values(self):
         """Return a list of all values in this hash table.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all buckets
-        # TODO: Collect all values in each bucket
+        # Loop through all buckets
+        values = []
+        for bucket in self.buckets:
+            #  Collect all values in each bucket
+            for value in bucket.items():
+                values.append(value)
+        return values
+
+      
 
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
@@ -52,31 +59,70 @@ class HashTable(object):
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all buckets
-        # TODO: Count number of key-value entries in each bucket
+        # Loop through all buckets
+        total=0
+        for bucket in self.buckets:
+        # Count number of key-value entries in each bucket
+            for key in bucket.items():
+                total += 1
+                #if isinstance(key,bucket):
+                    #total += len(value)
+        return total
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Find bucket where given key belongs
-        # TODO: Check if key-value entry exists in bucket
+              #Find bucket where given key belongs
+        index = self._bucket_index(key)
+        ll = self.buckets[index]
+        #  Check if key-value entry exists in bucket
+        result = ll.find(lambda item: item[0] == key)
+        
+        if result is not None:
+            return True
+        else:
+            return False
 
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Find bucket where given key belongs
-        # TODO: Check if key-value entry exists in bucket
-        # TODO: If found, return value associated with given key
-        # TODO: Otherwise, raise error to tell user get failed
+        #  Find bucket where given key belongs
+        index = self._bucket_index(key)
+        #  Check if key-value entry exists in bucket
+        ll = self.buckets[index]
+        #  If found, return value associated with given key
+        value = ll.find(lambda item: item[0] == key)
+        #  Otherwise, raise error to tell user get failed
+        if value != None:
+            return value[1]
+        else:
+            raise KeyError('Key not found: {}'.format(key))
+
         # Hint: raise KeyError('Key not found: {}'.format(key))
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Find bucket where given key belongs
-        # TODO: Check if key-value entry exists in bucket
-        # TODO: If found, update value associated with given key
-        # TODO: Otherwise, insert given key-value entry into bucket
+        #Find bucket where given key belongs
+        index = self._bucket_index(key)
+        ll = self.buckets[index]
+        #  Check if key-value entry exists in bucket
+        print("To update", key, value)
+        result = ll.find(lambda item: item[0] == key)
+        #  If found, update value associated with given key
+        print(result)
+        if result is not None:
+            print("hello")
+            ll.print_ll()
+            ll.delete((key, result[1]))
+            ll.print_ll()
+            ll.append((key,value))
+        else:
+            ll.append((key,value))
+
+
+        #  Otherwise, insert given key-value entry into bucket
+
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
@@ -120,4 +166,16 @@ def test_hash_table():
 
 
 if __name__ == '__main__':
-    test_hash_table()
+    #test_hash_table()
+    ht = HashTable()
+    ht.set('I', 1)
+    ht.set('V', 4)
+    ht.set('X', 9)
+    #assert ht.length() == 3
+    ht.set('V', 5)  # Update value
+    #ht.set('X', 10)  # Update value
+    print("Hello")
+    #assert ht.get('I') == 1
+    #assert ht.get('V') == 5
+    #assert ht.get('X') == 10
+    #assert ht.length() == 3  # Check length is not overcounting

@@ -102,11 +102,14 @@ class LinkedList(object):
         #  Loop through all nodes to find item where quality(item) is True
         current = self.head
         while current != None: #making sure there is a value
+            print("current node", current.data)
+            print(quality(current.data))
             if quality(current.data) == True: #looping to find one that matches
                 return current.data
             else: #found
                 current = current.next  #move head to the next
         return None #not found
+
 
 
         #  Check if node's data satisfies given quality function
@@ -116,28 +119,39 @@ class LinkedList(object):
         TODO: Best case running time: O(???) Why and under what conditions?
         TODO: Worst case running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes to find one whose data matches given item
-        current = self.head.next
-        previous = self.head
-        
-        if self.head.data == item:
-            self.head = self.head.next
-            return  
-        
-        while current != None:
-            if current.data == item:
-                if current.next == None:
-                    self.tail = previous
-                    previous.next = current.next
-
-                    return
-        raise ValueError ("")    
-        
-
-
-        # TODO: Update previous node to skip around node with matching data
+        if self.is_empty():
+            raise ValueError('Item not found: {}'.format(item))
+            return
+        currentNode = self.head
+        if currentNode.data == item: #if head has the item
+            self.head = currentNode.next #if head has next... assign next as new head
+            if currentNode.next == None: #head is the last item... set self.tail to none
+                self.tail = None
+            return
+        prev = None
+        while currentNode != None: #loop until we reach tail
+            print("Current node =", currentNode)
+            if currentNode.data == item: #if node's data is the item... found!                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                if currentNode.next == None: #if currentNode is the tail because it has no next...
+                    self.tail = prev #prev node will now be the new tail
+                prev.next = currentNode.next #DELETE currentNode by removing prev's next (reference) to currentNode's next
+                return
+            # TODO: Update previous node to skip around node with matching data
+            prev = currentNode #if currentNode's data is not item, 
+            currentNode = currentNode.next #keep going til it reach the tail
+            print("Current.next = ", currentNode)
         # TODO: Otherwise raise error to tell user that delete has failed
-        # Hint: raise ValueError('Item not found: {}'.format(item))
+        raise ValueError('Item not found: {}'.format(item))
 
+
+        #  Update previous node to skip around node with matching data
+        # Otherwise raise error to tell user that delete has failed
+        # Hint: raise ValueError('Item not found: {}'.format(item))
+    def print_ll(self):
+        current = self.head
+        while current != None:
+            print("print", current.data)
+            current = current.next
 
 def test_linked_list():
     ll = LinkedList()
