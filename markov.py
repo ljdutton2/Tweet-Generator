@@ -42,8 +42,8 @@ class MarkovChain:
      sentence = []
      word = self.first_word
      for i in range(num_words):   
-            dictogram = self.markov_chain[word]
-            next_word = dictogram.sample()
+            chain = self.markov_chain[word]
+            next_word = chain.sample()
             sentence.append(next_word)
             word = next_word
      return " ".join(sentence)

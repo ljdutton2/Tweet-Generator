@@ -3,21 +3,27 @@ from random import *
 import sys
 histogram = {'one': 1, 'fish': 4, 'two': 1, 'red':1, 'blue': 1}
 
-def weight_sum(histogram):
-    sum = 0
-    range = 0
+def weight_sum(dictogram):
 
-    for word in histogram.keys():
-        sum+=histogram[word]
+    sum=0
+    for key, val in dictogram.items():
+        sum+=val
+    
+    return sum
+    # sum = 0
+    # range = 0
+
+    # for word in histogram.keys():
+    #     sum+=histogram[word]
         
         
-    rand_index = randint(0,sum )
+    # rand_index = randint(0,sum )
 
-    for word, value in histogram.items():
-        range += value
-        print(range)
-        if rand_index <= range:
-            return word
+    # for word, value in histogram.items():
+    #     range += value
+    #     print(range)
+    #     if rand_index <= range:
+    #         return word
 
 
 if __name__ == "__main__":

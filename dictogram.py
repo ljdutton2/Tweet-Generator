@@ -1,6 +1,7 @@
 
 from random import randint
 import random
+from sample_freqs import weight_sum
 
 class Dictogram:
 
@@ -52,13 +53,20 @@ class Dictogram:
         '''Randomly samples from the dictionary histogram based on the frequency, returns a word'''
 
         # use your sample function as a starting point to complete this method 
-        tokens = sum(count for word,count in self.dictionary_histogram.items())
-        dart = random.randint(1,tokens)
-        fence = 0
-        for word, count in self.dictionary_histogram.items():
-            fence += count
-            if fence >= dart:
-                return word
+        random_weight = random.randint(0,(weight_sum(self.dictionary_histogram)))
+        threshold = 0
+        for key, value in self.dictionary_histogram.items():
+
+            threshold += value
+            if threshold >= random_weight:
+                return key
+        # tokens = sum(count for word,count in self.dictionary_histogram.items())
+        # dart = random.randint(1,tokens)
+        # fence = 0
+        # for word, count in self.dictionary_histogram.items():
+        #     fence += count
+        #     if fence >= dart:
+        #         return word
 
 def print_dictogram(word_list):
     '''Creates a dictionary based histogram (dictogram) and then prints out its properties and samples from it'''
