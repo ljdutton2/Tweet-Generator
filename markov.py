@@ -40,11 +40,12 @@ class MarkovChain:
     def walk(self, num_words):
         # generate a sentence num_words long using the markov chain
      sentence = []
-     next_word = self.first_word
+     word = self.first_word
      for i in range(num_words):   
-            dictogram = self.markov_chain[next_word]
+            dictogram = self.markov_chain[word]
             next_word = dictogram.sample()
             sentence.append(next_word)
+            word = next_word
      return " ".join(sentence)
      
             

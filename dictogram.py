@@ -113,7 +113,7 @@ def print_dictogram_samples(dictogram):
     print(divider)
     print()
 
-print_dictogram(['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])
+#print_dictogram(['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])
 dictogram = Dictogram(['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish'])
 word = "fish"
 
